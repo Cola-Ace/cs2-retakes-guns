@@ -32,10 +32,10 @@ public class RetakesGuns : BasePlugin
     private readonly Dictionary<string, PlayerWeaponsList> _playerWeapons = new Dictionary<string, PlayerWeaponsList>();
 
     private SqliteConnection? _connection = null;
-    
+
     private const int PistolRound = 0;
     private const int FullBuy = 1;
-    
+
     public override void Load(bool hotReload)
     {
         // init weapons
@@ -124,7 +124,7 @@ public class RetakesGuns : BasePlugin
         }
 
         _playerWeapons[caller.AuthorizedSteamID!.SteamId3].AWP = !_playerWeapons[caller.AuthorizedSteamID.SteamId3].AWP;
-        Output.PrintToChat(caller, $"下回合开始[GREEN]你将{(!_playerWeapons[caller.AuthorizedSteamID.SteamId3].AWP ? "有机会获得AWP":"不再获得AWP")}[DEFAULT]");
+        Output.PrintToChat(caller, $"下回合开始[GREEN]你将{(!_playerWeapons[caller.AuthorizedSteamID.SteamId3].AWP ? "有机会获得AWP" : "不再获得AWP")}[DEFAULT]");
     }
 
     [ConsoleCommand("css_awp", "Switch AWP")]
@@ -142,7 +142,7 @@ public class RetakesGuns : BasePlugin
         if (Utils.IsWarmup()) return HookResult.Continue;
 
         // int PistolRound = 10;
-        
+
         Random random = new Random();
         int roundType = random.Next(1, 101) <= 10 ? 0 : 1; // 0 为手枪局, 1 为全起局
         int bombSite = random.Next(0, 2); // 0 为 A, 1 为 B
@@ -181,7 +181,7 @@ public class RetakesGuns : BasePlugin
                 case PistolRound: // 手枪局
                     {
                         if ((team == CsTeam.CounterTerrorist && _playerWeapons[steamid].CTSecondary == "weapon_usp_silencer")
-                            || (team == CsTeam.Terrorist && _playerWeapons[steamid].TSecondary == "weapon_glock")) 
+                            || (team == CsTeam.Terrorist && _playerWeapons[steamid].TSecondary == "weapon_glock"))
                             itemServices.HasHelmet = true;
 
                         break;
